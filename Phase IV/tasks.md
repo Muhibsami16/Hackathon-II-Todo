@@ -1,0 +1,23 @@
+- [ ] T001 [Setup] Initialize Phase III project structure in root directory
+- [ ] T002 [Foundational] Add due dates field to Todo model
+
+- [ ] T003 [US1] Implement DueDate migration in src/database/migrations/
+- [ ] T004 [US1] Add due_date column to todos table in src/models/todo.py
+- [ ] T005 [US1] Update validation for due_date input in src/schemas/todo.py
+- [ ] T010 [US2] Add priority field to Todo model in src/models/todo.py
+- [ ] T011 [US2] Update validation for priority values (1-5) in src/schemas/todo.py
+- [ ] T012 [US2] Implement priority assignment service in src/services/todo_service.py
+- [ ] T013 [US3] Add category field to Todo model in src/models/todo.py
+- [ ] T014 [US3] Implement category migration in src/database/migrations/
+- [ ] T015 [US3] Add category_id foreign key in src/models/todo.py
+- [ ] T016 [US3] Implement Category CRUD endpoints in src/api/category_api.py
+- [ ] T017 [P] [US4] Implement WebSocket connection handling in src/middleware/websocket.py
+- [ ] T018 [P] [US4] Real-time broadcast of todo updates via WebSocket in src/services/websocket_service.py
+- [ ] T019 [US4] Frontend WebSocket subscribe component in src/components/RealTimeFeed.jsx
+- [ ] T020 [US5] Advanced search filter by due date and priority in src/api/search_api.py
+- [ ] T021 [US5] Implement search API endpoint in src/api/search_api.py
+- [ ] T022 [US5] Add search component UI in src/components/SearchBar.jsx
+- [ ] T023 [US6] Bulk create todos with CSV upload in src/api/bulk_api.py
+- [ ] T024 [US6] Validate CSV format for bulk import in src/utils/csv_validator.py
+- [ ] T025 [US6] Process bulk import service in src/services/bulk_service.py
+- [ ] T026 [Polish] Update documentation for new fields and endpoints
