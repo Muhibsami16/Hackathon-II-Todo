@@ -1,29 +1,38 @@
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+import bcrypt
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Secret key for JWT
-SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your-default-secret-key-change-in-production")
+# Secret key for JWT - using BETTER_AUTH_SECRET as specified in requirements
+SECRET_KEY = os.getenv("BETTER_AUTH_SECRET", os.getenv("JWT_SECRET_KEY", "your-default-secret-key-change-in-production"))
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
-
-# Password hashing context
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a plaintext password against a hashed password."""
-    return pwd_context.verify(plain_password, hashed_password)
+    # Truncate password to 72 bytes if necessary (same as during hashing)
+    password_bytes = plain_password.encode('utf-8')
+    if len(password_bytes) > 72:
+        password_bytes = password_bytes[:72]
+
+    return bcrypt.checkpw(password_bytes, hashed_password.encode('utf-8'))
 
 
 def get_password_hash(password: str) -> str:
     """Hash a plaintext password."""
-    return pwd_context.hash(password)
+    # Truncate password to 72 bytes if necessary (bcrypt limitation)
+    password_bytes = password.encode('utf-8')
+    if len(password_bytes) > 72:
+        password_bytes = password_bytes[:72]
+
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password_bytes, salt)
+    return hashed.decode('utf-8')
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
